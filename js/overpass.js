@@ -406,6 +406,7 @@ setTimeout(function() {
           },
           onEachFeature : function (feature, layer) {
             layer.on('click', function(e) {
+              fire("onClickFeature", feature);
               var popup = "";
               if (feature.properties.type == "node")
                 popup += "<h2>Node <a href='//www.openstreetmap.org/node/"+feature.properties.id+"' target='_blank'>"+feature.properties.id+"</a></h2>";

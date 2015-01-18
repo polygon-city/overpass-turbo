@@ -605,16 +605,17 @@ var ide = new(function() {
       ide.waiter.close();
     }
     overpass.handlers["onAjaxError"] = function(errmsg) {
-      // show error dialog
-      var dialog_buttons= {};
-      dialog_buttons[i18n.t("dialog.dismiss")] = function() {$(this).dialog("close");};
-      $('<div title="'+i18n.t("error.ajax.title")+'"><p style="color:red;">'+i18n.t("error.ajax.expl")+'</p>'+errmsg+'</div>').dialog({
-        modal:true,
-        buttons: dialog_buttons,
-      }); // dialog
-      // print error text, if present
-      if (overpass.resultText)
-        ide.dataViewer.setValue(overpass.resultText);
+      console.log(errmsg);
+      // // show error dialog
+      // var dialog_buttons= {};
+      // dialog_buttons[i18n.t("dialog.dismiss")] = function() {$(this).dialog("close");};
+      // $('<div title="'+i18n.t("error.ajax.title")+'"><p style="color:red;">'+i18n.t("error.ajax.expl")+'</p>'+errmsg+'</div>').dialog({
+      //   modal:true,
+      //   buttons: dialog_buttons,
+      // }); // dialog
+      // // print error text, if present
+      // if (overpass.resultText)
+      //   ide.dataViewer.setValue(overpass.resultText);
     }
     overpass.handlers["onQueryError"] = function(errmsg) {
       var dialog_buttons= {};
