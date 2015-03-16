@@ -5,7 +5,7 @@ function htmlentities(str) {
 $(document).ready(function() {
   // some initalizations
   $.fn.dialog = function() {
-    alert("error :( "+$(this).html());
+    console.log("error :( "+$(this).html());
   };
   configs = {
     appname: "overpass-ide-map",
@@ -64,8 +64,8 @@ $(document).ready(function() {
   });
   // overpass functionality
   overpass.handlers["onEmptyMap"] = function(empty_msg, data_mode) {$('<div id="map_blank" style="z-index:1; display:block; position:absolute; top:42px; width:100%; text-align:center; background-color:#eee; opacity: 0.8;">This map intentionally left blank. <small>('+empty_msg+')</small></div>').appendTo("#map");};
-  overpass.handlers["onAjaxError"] = function(errmsg) {alert("An error occured during the execution of the overpass query!\n" + errmsg);};
-  overpass.handlers["onQueryError"] = function(errmsg) {alert("An error occured during the execution of the overpass query!\nThis is what overpass API returned:\n" + errmsg);};
+  overpass.handlers["onAjaxError"] = function(errmsg) {console.log("An error occured during the execution of the overpass query!\n" + errmsg);};
+  overpass.handlers["onQueryError"] = function(errmsg) {console.log("An error occured during the execution of the overpass query!\nThis is what overpass API returned:\n" + errmsg);};
   overpass.handlers["onGeoJsonReady"] = function() {ide.map.addLayer(overpass.osmLayer);};
   overpass.handlers["onPopupReady"] = function(p) {p.openOn(ide.map);};
   overpass.handlers["onDataRecieved"] = function(amount,txt, abortCB,continueCB) {continueCB();};
