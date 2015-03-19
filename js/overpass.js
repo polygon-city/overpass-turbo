@@ -421,26 +421,32 @@ setTimeout(function() {
                 $.each(feature.properties.tags, function(k,v) {
                   k = htmlentities(k); // escaping strings!
                   v = htmlentities(v);
-                  // hyperlinks for http,https and ftp URLs
-                  var url;
-                  if (url = v.match(/\b((?:(https?|ftp):\/\/|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}\/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:'".,<>?«»“”‘’]))/gi)) {
-                    url = url[0];
-                    var href = url.match(/^(https?|ftp):\/\//) ? url : 'http://'+url;
-                    v = '<a href="'+href+'" target="_blank">'+url+'</a>'
-                  } else {
-                    // hyperlinks for email adresses
-                    v = v.replace(/(([^\s()<>]+)@([^\s()<>]+[^\s`!()\[\]{};:'".,<>?«»“”‘’]))/g,'<a href="mailto:$1" target="_blank">$1</a>');
+
+                  // Skip if not a desired tag
+                  if (k.search(/^building|name|alt_name$/) === -1) {
+                    return;
                   }
-                  // hyperlinks for wikipedia entries
-                  var wiki_lang, wiki_page;
-                  if (((wiki_lang = k.match(/^wikipedia\:(.*)$/)) && (wiki_page = v)) || 
-                      ((k == "wikipedia") && (wiki_lang = v.match(/^([a-zA-Z]+)\:(.*)$/)) && (wiki_page = wiki_lang[2])))
-                    v = '<a href="//'+wiki_lang[1]+'.wikipedia.org/wiki/'+encodeURIComponent(wiki_page)+'" target="_blank">'+v+'</a>';
-                  // hyperlinks for wikidata entries
-                  var wikidata_page;
-                  if (((k == "wikidata") && (wikidata_page = v.match(/^Q[0-9]+$/))) ||
-                      (k.match(/:wikidata$/) && (wikidata_page = v.match(/^Q[0-9]+$/))))
-                    v = '<a href="//www.wikidata.org/wiki/'+encodeURIComponent(wikidata_page[0])+'" target="_blank">'+v+'</a>';
+
+                  // // hyperlinks for http,https and ftp URLs
+                  // var url;
+                  // if (url = v.match(/\b((?:(https?|ftp):\/\/|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}\/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:'".,<>?«»“”‘’]))/gi)) {
+                  //   url = url[0];
+                  //   var href = url.match(/^(https?|ftp):\/\//) ? url : 'http://'+url;
+                  //   v = '<a href="'+href+'" target="_blank">'+url+'</a>'
+                  // } else {
+                  //   // hyperlinks for email adresses
+                  //   v = v.replace(/(([^\s()<>]+)@([^\s()<>]+[^\s`!()\[\]{};:'".,<>?«»“”‘’]))/g,'<a href="mailto:$1" target="_blank">$1</a>');
+                  // }
+                  // // hyperlinks for wikipedia entries
+                  // var wiki_lang, wiki_page;
+                  // if (((wiki_lang = k.match(/^wikipedia\:(.*)$/)) && (wiki_page = v)) || 
+                  //     ((k == "wikipedia") && (wiki_lang = v.match(/^([a-zA-Z]+)\:(.*)$/)) && (wiki_page = wiki_lang[2])))
+                  //   v = '<a href="//'+wiki_lang[1]+'.wikipedia.org/wiki/'+encodeURIComponent(wiki_page)+'" target="_blank">'+v+'</a>';
+                  // // hyperlinks for wikidata entries
+                  // var wikidata_page;
+                  // if (((k == "wikidata") && (wikidata_page = v.match(/^Q[0-9]+$/))) ||
+                  //     (k.match(/:wikidata$/) && (wikidata_page = v.match(/^Q[0-9]+$/))))
+                  //   v = '<a href="//www.wikidata.org/wiki/'+encodeURIComponent(wikidata_page[0])+'" target="_blank">'+v+'</a>';
                   popup += "<li>"+k+"="+v+"</li>"
                 });
                 popup += "</ul>";
